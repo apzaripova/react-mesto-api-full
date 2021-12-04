@@ -2,6 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
+// eslint-disable-next-line import/no-unresolved
+const cors = require('cors');
+
+const app = express();
+const { PORT = 3000 } = process.env;
 
 const {
   errors, celebrate, Joi, CelebrateError,
@@ -10,11 +15,25 @@ const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/NotFoundError');
 
-const app = express();
-const { PORT = 3000 } = process.env;
+const allowedCors = [
+  'https://domainname.mesto.nomoredomains.rocks',
+  'http://domainname.mesto.nomoredomains.rocks',
+  'localhost:3000'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedCors.indexOf(origin) !== -1) {
+      callback(null, true);
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 const validateUrl = (value) => {
   if (!validator.isURL(value)) {
@@ -33,6 +52,14 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
@@ -57,6 +84,8 @@ app.use('/', cardsRouter);
 app.use('*', () => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use((err, req, res, next) => {
