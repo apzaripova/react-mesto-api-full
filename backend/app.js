@@ -2,8 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
-// eslint-disable-next-line import/no-unresolved
-const cors = require('cors');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -18,22 +16,6 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/NotFoundError');
-
-const allowedCors = [
-  'https://domainname.mesto.nomoredomains.rocks',
-  'http://domainname.mesto.nomoredomains.rocks',
-  'localhost:3000'];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedCors.indexOf(origin) !== -1) {
-      callback(null, true);
-    }
-  },
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
 
 const validateUrl = (value) => {
   if (!validator.isURL(value)) {
