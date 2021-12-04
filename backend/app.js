@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
 
-const app = express();
-const { PORT = 3000 } = process.env;
-
 const {
   errors, celebrate, Joi, CelebrateError,
 } = require('celebrate');
@@ -16,6 +13,9 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const NotFoundError = require('./errors/NotFoundError');
+
+const app = express();
+const { PORT = 3000 } = process.env;
 
 const validateUrl = (value) => {
   if (!validator.isURL(value)) {
