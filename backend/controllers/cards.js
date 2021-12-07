@@ -2,7 +2,7 @@ const Card = require('../models/card');
 
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
-const ConflictError = require('../errors/ConflictError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 // получаение всех карточек
 const getAllCards = (req, res, next) => {
@@ -36,7 +36,7 @@ const deleteCard = (req, res, next) => {
         throw new NotFoundError('Карточка не найдена');
       }
       if (card.owner.toString() !== req.user._id) {
-        throw new ConflictError('Вы не можете удалить чужую карточку');
+        throw new ForbiddenError('Вы не можете удалить чужую карточку');
       } else {
         Card.findByIdAndDelete(req.params.id)
           // eslint-disable-next-line no-shadow
