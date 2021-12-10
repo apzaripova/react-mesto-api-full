@@ -21,10 +21,12 @@ const getUsers = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  User.findById(req.params.id)
-    .then((user) => res.send(user))
-    .catch((err) => {
-      res.send(err);
+  User.findById(req.user._id, { __v: 0 })
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Ресурс не найден');
+      }
+      res.status(200).send(user);
     })
     .catch(next);
 };
@@ -101,21 +103,14 @@ const updateUserAvatar = (req, res, next) => {
     },
   )
     .then((user) => {
-      if (!user) {
-        next(new NotFoundError('Пользователь не найден'));
-      } else {
-        res.send(user);
-      }
+      res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Неверный идентификатор пользователя'));
-      } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
-      } else {
-        next(err);
+      if (err.name === 'ValidationError') {
+        throw new BadRequestError(err.message);
       }
-    });
+    })
+    .catch(next);
 };
 
 // контроллер Логин

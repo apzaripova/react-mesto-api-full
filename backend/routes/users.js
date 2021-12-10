@@ -9,6 +9,7 @@ const BadRequestError = require('../errors/BadRequestError');
 
 usersRouter.get('/users', getUsers);
 usersRouter.get('/users/me', getCurrentUser);
+
 usersRouter.get(
   '/users/:id',
   celebrate({
@@ -32,7 +33,7 @@ usersRouter.patch(
   '/users/me/avatar',
   celebrate({
     body: Joi.object().keys({
-      avatar: Joi.custom((value) => {
+      avatar: Joi.required().custom((value) => {
         if (!isURL(value, { require_protocol: true })) {
           throw new BadRequestError('Ссылка на аватарку неверна');
         }
