@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
+// eslint-disable-next-line import/no-unresolved
+const cors = require('cors');
 
 const {
   errors, celebrate, Joi, CelebrateError,
@@ -31,6 +33,18 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(cors({
+  origin: [
+    'https://domainname.mesto.nomoredomains.rocks',
+    'http://domainname.mesto.nomoredomains.rocks',
+    'http://localhost:3000',
+  ],
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
