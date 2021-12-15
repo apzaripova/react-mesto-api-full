@@ -3,4 +3,4 @@
   
 Публичный IP: 51.250.2.22
 
-Доменное имя: domainname.mesto.nomoredomains.rocks
+Доменное имя: api.domainname.mesto.nomoredomains.rocks

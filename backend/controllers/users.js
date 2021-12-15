@@ -5,6 +5,7 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
+const NotAuthError = require('../errors/NotAuthError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -123,7 +124,9 @@ const login = (req, res, next) => {
       );
       res.send({ token: token.toString() });
     })
-    .catch(next);
+    .catch(() => {
+      next(new NotAuthError('Ошибка авторизации'));
+    });
 };
 
 module.exports = {
