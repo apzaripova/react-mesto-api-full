@@ -34,20 +34,17 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-const options = {
-  CORS_WHITELIST: [
+app.use(cors({
+  origin: [
     'http://domainname.mesto.nomoredomains.rocks',
-    'http://api.domainname.mesto.nomoredomains.rocks',
+    'https://domainname.mesto.nomoredomains.rocks',
     'http://localhost:3000',
   ],
-  methods: ['OPTIONS', 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContiue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'Origin', 'Authorization'],
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
   credentials: true,
-};
-
-app.use(cors(options));
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
