@@ -96,7 +96,6 @@ const api = new Api({
   baseUrl: 'https://api.domainname.mesto.nomoredomains.rocks',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.jwt}`,
   }
 });
 
