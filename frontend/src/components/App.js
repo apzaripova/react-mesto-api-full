@@ -50,8 +50,8 @@ function App() {
         if (token) {
           auth.checkToken(token)
           .then((res) => {
-            if(res.data.email) {
-              setEmail(res.data.email)
+            if(res.email) {
+              setEmail(res.email)
               setLoggedIn(true)
               history.push('/')
             }
@@ -103,7 +103,7 @@ function App() {
 
   
   function handleDeleteClick(card) {
-    api.deleteCard(card._id, token)
+    api.deleteCard(card._id)
       .then(() => {
         setCards(cards.filter(item => item._id !== card._id));
       })
@@ -111,7 +111,7 @@ function App() {
   }
 
   const handleUpdateUser = (item) => {
-    api.setUserInfo(item, token)
+    api.setUserInfo(item)
     .then((newProfile) => {
       setCurrentUser(newProfile);
       closeAllPopups();
@@ -122,7 +122,7 @@ function App() {
   }
 
   const handleUpdateAvatar = (item) => {
-    api.setUserAvatar(item, token)
+    api.setUserAvatar(item)
     .then((newAvatar) => {
       setCurrentUser(newAvatar);
       closeAllPopups();
@@ -133,7 +133,7 @@ function App() {
   }
 
   const handleAddPlace = (item) => {
-    api.postCard(item, token)
+    api.postCard(item)
     .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
