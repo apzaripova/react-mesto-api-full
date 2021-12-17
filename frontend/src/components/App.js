@@ -103,7 +103,7 @@ function App() {
 
   
   function handleDeleteClick(card) {
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, token)
       .then(() => {
         setCards(cards.filter(item => item._id !== card._id));
       })
@@ -111,7 +111,7 @@ function App() {
   }
 
   const handleUpdateUser = (item) => {
-    api.setUserInfo(item)
+    api.setUserInfo(item, token)
     .then((newProfile) => {
       setCurrentUser(newProfile);
       closeAllPopups();
@@ -122,7 +122,7 @@ function App() {
   }
 
   const handleUpdateAvatar = (item) => {
-    api.setUserAvatar(item)
+    api.setUserAvatar(item, token)
     .then((newAvatar) => {
       setCurrentUser(newAvatar);
       closeAllPopups();
@@ -133,7 +133,7 @@ function App() {
   }
 
   const handleAddPlace = (item) => {
-    api.postCard(item)
+    api.postCard(item, token)
     .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
