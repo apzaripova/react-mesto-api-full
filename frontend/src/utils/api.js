@@ -12,14 +12,14 @@ class Api {
         return res.json();
     }
 
-    getUserInfo(token) {
+    getUserInfo() {
         return fetch(`${this._url}/users/me`, {
           method: 'GET',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-    setUserAvatar(item, token) {
+    setUserAvatar(item) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
@@ -29,14 +29,14 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    getCards(token) {
+    getCards() {
         return fetch(`${this._url}/cards`, {
           method: 'GET',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-      postCard(item, token) {
+      postCard(item) {
         return fetch(`${this._url}/cards`, {
           method: 'POST',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
@@ -47,28 +47,28 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    deleteCard(id, token) {
+    deleteCard(id) {
         return fetch(`${this._url}/cards/${id}`, {
           method: 'DELETE',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-    setLike(id, token) {
+    setLike(id) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'PUT',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-    deleteLike(id, token) {
+    deleteLike(id) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'DELETE',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-    setUserInfo(item, token) {
+    setUserInfo(item) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
