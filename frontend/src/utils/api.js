@@ -15,14 +15,14 @@ class Api {
     getUserInfo(token) {
         return fetch(`${this._url}/users/me`, {
           method: 'GET',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
     setUserAvatar(item, token) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             avatar: item.avatar
           })
@@ -32,14 +32,14 @@ class Api {
     getCards(token) {
         return fetch(`${this._url}/cards`, {
           method: 'GET',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
       postCard(item, token) {
         return fetch(`${this._url}/cards`, {
           method: 'POST',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             name: item.name,
             link: item.link
@@ -50,28 +50,28 @@ class Api {
     deleteCard(id, token) {
         return fetch(`${this._url}/cards/${id}`, {
           method: 'DELETE',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
     setLike(id, token) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'PUT',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
     deleteLike(id, token) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'DELETE',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
     setUserInfo(item, token) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             name: item.firstname,
             about: item.job
