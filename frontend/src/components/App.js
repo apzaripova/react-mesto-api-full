@@ -134,7 +134,7 @@ function App() {
   }
 
   const handleAddPlace = (item) => {
-    api.postCard(item, card)
+    api.postCard(item, token)
     .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
