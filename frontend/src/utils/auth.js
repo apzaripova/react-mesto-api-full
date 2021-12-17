@@ -18,7 +18,7 @@ export const authorize = ({ password, email }) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${localStorage.setItem("jwt")}`,
   },
     body: JSON.stringify({ email, password }),
   }).then(handleOriginalResponse);
@@ -29,7 +29,7 @@ export const checkToken = (token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${localStorage.setItem("jwt")}`,
   },
   }).then(handleOriginalResponse);
 };
