@@ -34,16 +34,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-const allowedCors = [
-  'https://domainname.mesto.nomoredomains.rocks',
-  'https://api.domainname.mesto.nomoredomains.rocks',
-  'http://localhost:3000',
-];
-
-app.use(cors({
-  origin: allowedCors,
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
