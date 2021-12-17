@@ -31,10 +31,11 @@ function App() {
     const [email, setEmail] = useState('');
     const [isSuccessSignUp, setIsSuccesSignUp] = React.useState(false);
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+    const [token, setToken] = useState('');
     const history = useHistory();
 
     React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getCards()])
+        Promise.all([api.getUserInfo(token), api.getCards(token)])
           .then(([info, initialCards]) => {
             setCurrentUser(info)
             setCards(initialCards)
@@ -45,8 +46,9 @@ function App() {
         }, []);
 
     function handleCheckToken () {
-        const token = localStorage.getItem('jwt');
+        const token = localStorage.getItem('token');
         if (token) {
+          setToken(token);
           auth.checkToken(token)
           .then((res) => {
             if(res.data.email) {
@@ -92,7 +94,7 @@ function App() {
       const isLiked = card.likes.some(i => i._id === currentUser._id);
       
       // Отправляем запрос в API и получаем обновлённые данные карточки
-      api.setLike(card._id, !isLiked).then((newCard) => {
+      api.setLike(card._id, !isLiked, token).then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
       .catch((err) => {
@@ -102,7 +104,7 @@ function App() {
 
   
   function handleDeleteClick(card) {
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, token)
       .then(() => {
         setCards(cards.filter(item => item._id !== card._id));
       })
@@ -110,7 +112,7 @@ function App() {
   }
 
   const handleUpdateUser = (item) => {
-    api.setUserInfo(item)
+    api.setUserInfo(item, token)
     .then((newProfile) => {
       setCurrentUser(newProfile);
       closeAllPopups();
@@ -121,7 +123,7 @@ function App() {
   }
 
   const handleUpdateAvatar = (item) => {
-    api.setUserAvatar(item)
+    api.setUserAvatar(item, token)
     .then((newAvatar) => {
       setCurrentUser(newAvatar);
       closeAllPopups();
@@ -132,7 +134,7 @@ function App() {
   }
 
   const handleAddPlace = (item) => {
-    api.postCard(item)
+    api.postCard(item, card)
     .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -181,7 +183,7 @@ function App() {
 
   //выход из учетной записи
   function handleSignOut() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('token');
     setEmail('');
     setLoggedIn(false);
     history.push('/sign-in');
