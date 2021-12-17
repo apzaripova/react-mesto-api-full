@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
-// eslint-disable-next-line import/no-unresolved
 const cors = require('cors');
 
 const {
@@ -17,14 +16,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
-const { PORT = 3000 } = process.env;
-
-const validateUrl = (value) => {
-  if (!validator.isURL(value)) {
-    throw new CelebrateError('Некорректный URL');
-  }
-  return value;
-};
 
 // подключение к БД
 
@@ -35,6 +26,15 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(cors());
+
+const { PORT = 3000 } = process.env;
+
+const validateUrl = (value) => {
+  if (!validator.isURL(value)) {
+    throw new CelebrateError('Некорректный URL');
+  }
+  return value;
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
