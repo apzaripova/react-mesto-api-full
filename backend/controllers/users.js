@@ -122,7 +122,7 @@ const login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' },
       );
-      res.send({ token: token.toString() });
+      res.status(200).send({ token, name: user.name, email: user.email });
     })
     .catch(() => {
       next(new NotAuthError('Ошибка авторизации'));
