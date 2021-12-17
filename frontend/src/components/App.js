@@ -64,7 +64,7 @@ function App() {
   
     React.useEffect(() => {
       handleCheckToken();
-    }, []);
+    }, [loggedIn]);
 
    
 
