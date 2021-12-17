@@ -12,18 +12,24 @@ class Api {
         return res.json();
     }
 
-    getUserInfo() {
+    getUserInfo(token) {
         return fetch(`${this._url}/users/me`, {
           method: 'GET',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include'
         }).then(this._handleOriginalResponse)
       }
 
-    setUserAvatar(item) {
+    setUserAvatar(item, token) {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include',
           body: JSON.stringify({
             avatar: item.avatar
@@ -31,18 +37,24 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    getCards() {
+    getCards(token) {
         return fetch(`${this._url}/cards`, {
           method: 'GET',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include'
         }).then(this._handleOriginalResponse)
       }
 
-      postCard(item) {
+      postCard(item, token) {
         return fetch(`${this._url}/cards`, {
           method: 'POST',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include',
           body: JSON.stringify({
             name: item.name,
@@ -51,34 +63,46 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    deleteCard(id) {
+    deleteCard(id, token) {
         return fetch(`${this._url}/cards/${id}`, {
           method: 'DELETE',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include'
         }).then(this._handleOriginalResponse)
       }
 
-    setLike(id) {
+    setLike(id, token) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'PUT',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include'
         }).then(this._handleOriginalResponse)
       }
 
-    deleteLike(id) {
+    deleteLike(id, token) {
         return fetch(`${this._url}/cards/likes/${id}`, {
           method: 'DELETE',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include'
         }).then(this._handleOriginalResponse)
       }
 
-    setUserInfo(item) {
+    setUserInfo(item, token) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
-          headers: this._headers,
+          headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+          },
           credentials: 'include',
           body: JSON.stringify({
             name: item.firstname,
@@ -95,8 +119,8 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.domainname.mesto.nomoredomains.rocks',
   headers: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem("jwt")}`,
   }
 });
 
