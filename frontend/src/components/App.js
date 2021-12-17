@@ -31,6 +31,7 @@ function App() {
     const [email, setEmail] = useState('');
     const [isSuccessSignUp, setIsSuccesSignUp] = React.useState(false);
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+    const [token, setToken] = useState('');
     const history = useHistory();
 
     React.useEffect(() => {
@@ -64,7 +65,7 @@ function App() {
   
     React.useEffect(() => {
       handleCheckToken();
-    }, [loggedIn]);
+    }, []);
 
    
 
@@ -163,9 +164,10 @@ function App() {
 
   //авторизация
   function handleAuthorization({email, password}) {
-    auth.authorize({email, password})
+    auth.authorize({email, password}, token)
     .then((res) => {
       if (res.token) {
+        setToken(res.token);
         setEmail(email)
         setLoggedIn(true);
         setIsSuccesSignUp(true)
