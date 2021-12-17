@@ -8,7 +8,6 @@ export const register = (email, password) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
   },
     body: JSON.stringify({ email, password }),
   }).then(handleOriginalResponse);
