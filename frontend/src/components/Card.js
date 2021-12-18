@@ -6,7 +6,7 @@ export default function Card({card, onCardClick, onCardDelete, onCardLike, }) {
     const currentUser = React.useContext(CurrentUserContext);
 
      //Определяем, являемся ли мы владельцем карточки
-    const isOwn = card.owner === currentUser._id;
+    const isOwn = card.owner._id === currentUser._id;
 
     //Переменная для класса кнопки удаления (если карточка наша -- видим иконку удаления)
     const cardDeleteButtonClassName = (
