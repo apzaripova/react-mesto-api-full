@@ -68,10 +68,10 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    setUserInfo(item) {
+    setUserInfo(item, token) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, authorization: `Bearer ${token}` },
           body: JSON.stringify({
             name: item.firstname,
             about: item.job

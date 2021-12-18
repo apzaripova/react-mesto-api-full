@@ -111,7 +111,7 @@ function App() {
   }
 
   const handleUpdateUser = (item) => {
-    api.setUserInfo(item)
+    api.setUserInfo(item, token)
     .then((newProfile) => {
       setCurrentUser(newProfile);
       closeAllPopups();
