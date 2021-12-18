@@ -105,7 +105,7 @@ function App() {
   function handleDeleteClick(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards(cards.filter(item => item._id !== card._id));
+        setCards(cards.filter(i => i._id !== card._id));
       })
       .catch(err => console.log(err));
   }
