@@ -55,14 +55,14 @@ class Api {
       }
 
     setLike(id) {
-        return fetch(`${this._url}/cards/likes/${id}`, {
+        return fetch(`${this._url}/cards/${id}/likes`, {
           method: 'PUT',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
     deleteLike(id) {
-        return fetch(`${this._url}/cards/likes/${id}`, {
+        return fetch(`${this._url}/cards/${id}/likes`, {
           method: 'DELETE',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
