@@ -36,13 +36,13 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-      postCard(item) {
+      postCard({name, link}) {
         return fetch(`${this._url}/cards`, {
           method: 'POST',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
-            name: item.name,
-            link: item.link
+            name: name,
+            link: link
           })
         }).then(this._handleOriginalResponse)
       }

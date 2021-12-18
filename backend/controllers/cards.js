@@ -19,7 +19,7 @@ const createCard = (req, res, next) => {
   const owner = req.user._id;
 
   Card.create({ name, link, owner })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Данные не прошли валидацию');
@@ -35,7 +35,7 @@ const deleteCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       }
-      if (card.owner.toString() !== req.user._id) {
+      if (card._id.toString() !== req.params.id) {
         throw new ForbiddenError('Вы не можете удалить чужую карточку');
       } else {
         Card.findByIdAndDelete(req.params.id)
