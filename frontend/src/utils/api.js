@@ -62,16 +62,16 @@ class Api {
       }
 
     deleteLike(id) {
-        return fetch(`${this._url}/cards/${id}/likes`, {
+        return fetch(`${this._url}/cards/likes/${id}/likes`, {
           method: 'DELETE',
           headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
-    setUserInfo(item, token) {
+    setUserInfo(item) {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
-          headers: { ...this._headers, authorization: `Bearer ${token}` },
+          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             name: item.firstname,
             about: item.job
