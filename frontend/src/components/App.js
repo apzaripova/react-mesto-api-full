@@ -133,7 +133,7 @@ function App() {
   }
 
   const handleAddPlace = (item) => {
-    api.postCard(item)
+    api.postCard(item.name, item.link)
     .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
