@@ -74,7 +74,7 @@ const createUser = (req, res, next) => {
 
 // контроллер обновления пользователя
 const updateUser = (req, res, next) => {
-  const { name, about } = req.bodgity;
+  const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, about }, {
     new: true,
