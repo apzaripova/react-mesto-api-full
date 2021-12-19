@@ -59,29 +59,13 @@ class Api {
         }).then(this._handleOriginalResponse)
       }
 
-    setLike(id) {
-        return fetch(`${this._url}/cards/${id}/likes`, {
-          method: 'PUT',
-          credentials: 'include',
-          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
-        }).then(this._handleOriginalResponse)
-      }
-
-    deleteLike(id) {
-        return fetch(`${this._url}/cards/likes/${id}/likes`, {
-          method: 'DELETE',
-          credentials: 'include',
-          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
-        }).then(this._handleOriginalResponse)
-      }
-
       changeLikeCardStatus(id, cardLiked) {
         return fetch(`${this._url}/cards/${id}/likes`, {
           method: cardLiked ? 'DELETE' : 'PUT',
           headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           credentials: 'include',
         })
-        .then(res => this.handleOriginalResponse(res));
+        .then(this._handleOriginalResponse);
       }
 
     setUserInfo(item) {
