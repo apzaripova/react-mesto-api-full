@@ -77,7 +77,7 @@ const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   const id = req.user._id;
 
-  User.findByIdAndUpdate({ _id: id }, { name, about }, {
+  User.findByIdAndUpdate(id, { name, about }, {
     new: true,
     runValidators: true,
   })
