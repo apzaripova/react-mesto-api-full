@@ -90,7 +90,7 @@ function App() {
 
     function handleLikeCard(card) {
       // Снова проверяем, есть ли уже лайк на этой карточке
-      const isLiked = card.likes.some(i => i._id === currentUser._id);
+      const isLiked = card.likes.some((i) => i === currentUser._id);
       
       // Отправляем запрос в API и получаем обновлённые данные карточки
       api.setLike(card._id, !isLiked).then((newCard) => {
@@ -135,7 +135,6 @@ function App() {
   const handleAddPlace = (item) => {
     api.postCard(item)
     .then((newCard) => {
-      console.log(newCard)
         setCards([newCard, ...cards]);
         closeAllPopups();
     })
