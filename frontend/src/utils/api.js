@@ -74,8 +74,8 @@ class Api {
           credentials: 'include',
           headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
-            name: item.firstname,
-            about: item.job
+            name: item.name,
+            about: item.about
           })
         }).then(this._handleOriginalResponse)
       }
