@@ -16,7 +16,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
           method: 'GET',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
@@ -24,7 +24,7 @@ class Api {
         return fetch(`${this._url}/users/me/avatar`, {
           method: 'PATCH',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             avatar: item.avatar
           })
@@ -35,7 +35,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
           method: 'GET',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
@@ -43,7 +43,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
           method: 'POST',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             name: item.name,
             link: item.link
@@ -55,7 +55,7 @@ class Api {
         return fetch(`${this._url}/cards/${id}`, {
           method: 'DELETE',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
@@ -63,7 +63,7 @@ class Api {
         return fetch(`${this._url}/cards/${id}/likes`, {
           method: 'PUT',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
@@ -71,13 +71,14 @@ class Api {
         return fetch(`${this._url}/cards/likes/${id}/likes`, {
           method: 'DELETE',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
         }).then(this._handleOriginalResponse)
       }
 
       changeLikeCardStatus(id, cardLiked) {
         return fetch(`${this._url}/cards/${id}/likes`, {
           method: cardLiked ? 'DELETE' : 'PUT',
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           credentials: 'include',
         })
         .then(res => this.handleOriginalResponse(res));
@@ -87,7 +88,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
           method: 'PATCH',
           credentials: 'include',
-          headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('jwt')}` },
+          headers: { ...this._headers, 'authorization': `Bearer ${localStorage.getItem('jwt')}` },
           body: JSON.stringify({
             name: item.firstname,
             about: item.job
