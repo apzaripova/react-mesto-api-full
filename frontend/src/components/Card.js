@@ -5,13 +5,8 @@ export default function Card({card, onCardClick, onCardDelete, onCardLike, }) {
 
     const currentUser = React.useContext(CurrentUserContext);
 
-     //Определяем, являемся ли мы владельцем карточки
-     const isOwn = card.owner._id === currentUser._id || card.owner === currentUser._id;
-
     //Переменная для класса кнопки удаления (если карточка наша -- видим иконку удаления)
-    const cardDeleteButtonClassName = (
-        `card__button-delete ${isOwn ? 'card__button-delete_visible' : 'card__button-delete_hidden'}`
-      );
+      const cardDeleteButtonClassName = (card.owner === currentUser._id) ? 'card__button-delete_visible': '';
 
     // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
     const isLiked = card.likes.some((id) => id === currentUser._id);
@@ -37,7 +32,10 @@ export default function Card({card, onCardClick, onCardDelete, onCardLike, }) {
         <li className="card">
             <div className="card__container">
                             <img className="card__photo" alt={card.name} src={card.link} onClick={handleClick} />
-                            <button className={cardDeleteButtonClassName} onClick={handleDeleteCard}></button>
+                            <button 
+                            className={`card__button-delete ${cardDeleteButtonClassName}`}  
+                            onClick={handleDeleteCard}
+                            ></button>
             </div>
                         <div className="card__info">
                             <h2 className="card__title">{card.name}</h2>
