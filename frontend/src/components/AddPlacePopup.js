@@ -34,25 +34,29 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 
     return (
         <PopupWithForm  title="Новое место" submitButtonText="Создать" name="newCard" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
-                    <input className="popup__input popup__input_type_title" 
-                    id="input-title" 
-                    type="text" 
-                    placeholder="Название" 
-                    name="name" 
-                    minLength="2" 
-                    maxLength="30" 
-                    required 
-                    onChange={handleCardTitle}
-                    value={cardTitle ? cardTitle : ''} />
+                    <input 
+                      className="popup__input popup__input_type_title" 
+                      id="input-title" 
+                      type="text" 
+                      placeholder="Название" 
+                      name="name" 
+                      minLength="2" 
+                      maxLength="30" 
+                      required 
+                      onChange={handleCardTitle}
+                      value={cardTitle ? cardTitle : ''} 
+                    />
                     <span className="popup__input-error input-title-error"></span>
-                    <input className="popup__input popup__input_type_link" 
-                    id="input-link" 
-                    type="url" 
-                    placeholder="Ссылка на картинку" 
-                    name="link" 
-                    required 
-                    onChange={handleCardLink}
-                    value={cardLink ? cardLink : ''}/>
+                    <input 
+                      className="popup__input popup__input_type_link" 
+                      id="input-link" 
+                      type="url" 
+                      placeholder="Ссылка на картинку" 
+                      name="link" 
+                      required 
+                      onChange={handleCardLink}
+                      value={cardLink ? cardLink : ''}
+                    />
                     <span className="popup__input-error input-link-error"></span>
         </PopupWithForm>
     )
