@@ -133,6 +133,7 @@ function App() {
   }
 
   const handleAddPlace = (card) => {
+    console.log()
     api.postCard(card)
     .then((newCard) => {
         setCards([newCard, ...cards]);

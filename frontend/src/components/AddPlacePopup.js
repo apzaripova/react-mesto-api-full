@@ -1,36 +1,22 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useState, useEffect } from 'react';
+import { useRef } from "react";
 
 
 export default function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 
-    const [cardTitle, setCardTitle] = useState('');
-    const [cardLink, setCardLink] = useState('');
-
-  //Обработчик установки названия места
-  function handleCardTitle(event) {
-    setCardTitle(event.target.value)
-  }
-
-  //Обработчик установки картинки (ссылки на картинку)
-  function handleCardLink(event) {
-    setCardLink(event.target.value)
-  }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-    
-        onAddPlace({
-          name: cardTitle,
-          link: cardLink
-        })
+      const cardTitle = useRef();
+      const cardLink = useRef();
+  
+      function handleSubmit(e) {
+          e.preventDefault();
+          onAddPlace({
+              link: cardLink.current.value,
+              name: cardTitle.current.value,
+          });
+          cardTitle.current.value = ''
+          cardLink.current.value = ''
       }
-
-      useEffect(() => {
-        setCardLink('')
-        setCardTitle('')
-      }, [isOpen])
 
     return (
         <PopupWithForm  title="Новое место" submitButtonText="Создать" name="newCard" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
@@ -43,8 +29,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}) {
                       minLength="2" 
                       maxLength="30" 
                       required 
-                      onChange={handleCardTitle}
-                      value={cardTitle ? cardTitle : ''} 
+                      ref={cardTitle}
                     />
                     <span className="popup__input-error input-title-error"></span>
                     <input 
@@ -54,8 +39,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}) {
                       placeholder="Ссылка на картинку" 
                       name="link" 
                       required 
-                      onChange={handleCardLink}
-                      value={cardLink ? cardLink : ''}
+                      ref={cardLink}
                     />
                     <span className="popup__input-error input-link-error"></span>
         </PopupWithForm>
