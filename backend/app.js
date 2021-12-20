@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const validator = require('validator');
-// const cors = require('cors');
+const cors = require('cors');
 
 const {
   errors, celebrate, Joi, CelebrateError,
@@ -25,19 +25,19 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-// const whiteList = ['http://domainname.mesto.nomoredomains.rocks',
-//   'https://domainname.mesto.nomoredomains.rocks'];
+const whiteList = ['http://domainname.mesto.nomoredomains.rocks',
+  'https://domainname.mesto.nomoredomains.rocks'];
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (whiteList.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     }
-//   },
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whiteList.indexOf(origin) !== -1) {
+      callback(null, true);
+    }
+  },
+  credentials: true,
+};
 
-// app.use('*', cors(corsOptions));
+app.use('*', cors(corsOptions));
 
 const { PORT = 3000 } = process.env;
 
